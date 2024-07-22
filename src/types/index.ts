@@ -24,20 +24,26 @@ export class Observable<T> {
     this.observers = this.observers.filter(obs => obs !== observer);
   }
   
-  private next(value: T) {
-    this.observers.forEach(observer => observer.next && observer.next(value));
+  private async next(value: T) {
+    const notifyPromises = this.observers.map(observer =>
+      observer.next ? observer.next(value) : Promise.resolve()
+    );
+    await Promise.all(notifyPromises);
   }
   
-  private complete() {
-    this.observers.forEach(observer => observer.complete && observer.complete());
-    this.observers = [];
+  private async complete() {
+    const notifyPromises = this.observers.map(observer =>
+      observer.complete ? observer.complete() : Promise.resolve()
+    );
+    await Promise.all(notifyPromises);
   }
   
-  protected notifyNext(value: T) {
-    this.next(value);
+  protected async notifyNext(value: T) {
+    await this.next(value);
   }
   
-  protected notifyComplete() {
-    this.complete();
+  protected async notifyComplete() {
+    await this.complete();
   }
 }
+
