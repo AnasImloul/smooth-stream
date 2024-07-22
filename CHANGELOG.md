@@ -1,5 +1,11 @@
 # smooth-streamer
 
+## 1.0.5
+
+### Patch Changes
+
+- 47483b2: exported Subscription & Observable
+
 ## 1.0.4
 
 ### Patch Changes
