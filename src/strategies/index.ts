@@ -1,7 +1,6 @@
-import { WholeStreamingStrategy } from "./whole-strategy";
-import { CharacterStreamingStrategy } from "./character-strategy";
-import { WordStreamingStrategy } from "./word-strategy";
-
+import { WholeStreamingStrategy } from './whole-strategy';
+import { CharacterStreamingStrategy } from './character-strategy';
+import { WordStreamingStrategy } from './word-strategy';
 
 enum StreamingMode {
   CHARACTER,
@@ -26,4 +25,4 @@ export {
   WholeStreamingStrategy,
   getStreamingStrategy,
   StreamingMode,
-}
+};

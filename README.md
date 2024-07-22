@@ -9,6 +9,7 @@ npm install smooth-stream
 ```
 
 ## Usage
+
 The Smooth Stream library allows you to stream text content in a smooth, controlled manner. It supports different streaming strategies to cater to various needs. Below are examples in both JavaScript and TypeScript to demonstrate how to use the library.
 
 ### JavaScript
@@ -16,69 +17,71 @@ The Smooth Stream library allows you to stream text content in a smooth, control
 #### Importing and initializing the smooth stream
 
 ```js
-const { 
-    SmoothStreamer,
-    StreamingMode,
-    getStreamingStrategy 
+const {
+  SmoothStreamer,
+  StreamingMode,
+  getStreamingStrategy,
 } = require('smooth-stream');
 
 // Create a SmoothStream instance with a 100ms delay
 // between characters
 // and prefix matching enabled
 const streamer = new SmoothStreamer(
-    100, // 100ms delay between updates
-    getStreamingStrategy(StreamingMode.CHARACTER),
-    true // prefix matching
+  100, // 100ms delay between updates
+  getStreamingStrategy(StreamingMode.CHARACTER),
+  true // prefix matching
 );
 ```
 
 #### Subscribe to the stream events
 
 ```js
-// Subscribe to the streamer to handle 
+// Subscribe to the streamer to handle
 // responses, errors, and completion
 streamer.subscribe(
-    // callback for any new response
-    (response) => console.log(response),
-    // callback for any error
-    (err) => console.error(err),
-    // callback for the end of the stream
-    () => console.log("Stream ended")
+  // callback for any new response
+  (response) => console.log(response),
+  // callback for any error
+  (err) => console.error(err),
+  // callback for the end of the stream
+  () => console.log('Stream ended')
 );
 
 // Add a callback for when the entire stream ends
 // This executes after streamer.subscribe completes
 streamer.onStreamEnd(() => {
-    console.log('Streaming ended.');
+  console.log('Streaming ended.');
 });
 ```
 
 #### Stream Text
+
 ```js
 // Start streaming text character by character
 streamer.next('Hello'); // Stream "Hello"
 
 // Continue streaming the extended text
 streamer.next('Hello, this is a test response.', () => {
-    // This code runs after the text from this call is fully streamed
-    // and runs before any next stream calls
-    console.log("text has been fully streamed.")
-    
-    // Flush the stream to reset it and clear pending updates
-    streamer.flush();
+  // This code runs after the text from this call is fully streamed
+  // and runs before any next stream calls
+  console.log('text has been fully streamed.');
 
-    // Add new text to the stream after flushing
-    streamer.next('New stream started.');
+  // Flush the stream to reset it and clear pending updates
+  streamer.flush();
+
+  // Add new text to the stream after flushing
+  streamer.next('New stream started.');
 });
 
 streamer.next('This will not be streamed because it got flushed');
-
 ```
+
 ### TypeScript
 
 The Smooth Stream library has native support for TypeScript, allowing you to take advantage of type checking and autocompletion benefits in TypeScript projects. The usage in TypeScript is identical to the JavaScript example above, with the addition of type annotations.
 
 ## Streaming Strategies
+
 The library supports three streaming strategies, each suited for different types of text streaming needs:
 
 - **Character**: Streams the response one character at a time, providing a smooth, letter-by-letter reveal of the text.
@@ -86,6 +89,7 @@ The library supports three streaming strategies, each suited for different types
 - **Whole**: Streams the entire response at once, delivering the full text immediately without gradual reveal.
 
 ## What is Prefix Matching?
+
 Prefix match means that when two consecutive next() calls are made, the stream will reset to the longest common prefix of the two strings. For example:
 
 ```js
