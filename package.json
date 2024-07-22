@@ -24,7 +24,7 @@
     "llm"
   ],
   "author": "AnasImloul",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/AnasImloul/smooth-stream/issues"
   },
