@@ -1,11 +1,11 @@
-# Smooth Streamer
+# Smooth Stream
 
 A library for streaming text responses smoothly with different strategies.
 
 ## Installation
 
 ```bash
-npm install smooth-streamer
+npm install smooth-stream
 ```
 
 ## Usage
@@ -13,14 +13,14 @@ The Smooth Stream library allows you to stream text content in a smooth, control
 
 ### JavaScript
 
-#### Importing and initializing the smooth streamer
+#### Importing and initializing the smooth stream
 
 ```js
 const { 
     SmoothStreamer,
     StreamingMode,
     getStreamingStrategy 
-} = require('smooth-streamer');
+} = require('smooth-stream');
 
 // Create a SmoothStream instance with a 100ms delay
 // between characters
@@ -32,7 +32,7 @@ const streamer = new SmoothStreamer(
 );
 ```
 
-#### Subscribe to the streamer events
+#### Subscribe to the stream events
 
 ```js
 // Subscribe to the streamer to handle 
@@ -76,7 +76,7 @@ streamer.next('This will not be streamed because it got flushed');
 ```
 ### TypeScript
 
-The Smooth Streamer library has native support for TypeScript, allowing you to take advantage of type checking and autocompletion benefits in TypeScript projects. The usage in TypeScript is identical to the JavaScript example above, with the addition of type annotations.
+The Smooth Stream library has native support for TypeScript, allowing you to take advantage of type checking and autocompletion benefits in TypeScript projects. The usage in TypeScript is identical to the JavaScript example above, with the addition of type annotations.
 
 ## Streaming Strategies
 The library supports three streaming strategies, each suited for different types of text streaming needs:
