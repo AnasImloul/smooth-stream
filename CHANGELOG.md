@@ -1,5 +1,11 @@
 # smooth-streamer
 
+## 1.0.2
+
+### Patch Changes
+
+- ca6da2c: updated package.json
+
 ## 0.0.1
 
 ### Patch Changes
