@@ -1,5 +1,12 @@
 # smooth-streamer
 
+## 1.0.6
+
+### Patch Changes
+
+- 81027cc: setup prettier
+- 96ef92c: updated how setting streamingMode & intervalMs affects currently running streams
+
 ## 1.0.5
 
 ### Patch Changes
