@@ -1,5 +1,11 @@
 # smooth-streamer
 
+## 0.0.1
+
+### Patch Changes
+
+- 53c12a3: patched workflow
+
 ## 0.0.2
 
 ### Patch Changes
