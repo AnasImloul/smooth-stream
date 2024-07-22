@@ -1,4 +1,4 @@
-import { StreamingStrategy } from "./types";
+import { StreamingStrategy, Subscription, Observable } from "./types";
 import {
   CharacterStreamingStrategy,
   WholeStreamingStrategy,
@@ -17,4 +17,6 @@ export {
   WholeStreamingStrategy,
   StreamingMode,
   getStreamingStrategy,
+  Subscription,
+  Observable
 }
