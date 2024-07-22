@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AnasImloul/smooth-streamer.git"
+    "url": "git+https://github.com/AnasImloul/smooth-stream.git"
   },
   "keywords": [
     "streaming",
@@ -25,9 +25,9 @@
   "author": "AnasImloul",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AnasImloul/smooth-streamer/issues"
+    "url": "https://github.com/AnasImloul/smooth-stream/issues"
   },
-  "homepage": "https://github.com/AnasImloul/smooth-streamer#readme",
+  "homepage": "https://github.com/AnasImloul/smooth-stream#readme",
   "files": [
     "dist",
     "compiled"
