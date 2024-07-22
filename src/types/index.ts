@@ -1,3 +1,5 @@
+import {StreamingMode} from "../strategies";
+
 export type Observer<T> = {
   next?: (value: T) => void;
   error?: (err: any) => void;
@@ -6,6 +8,13 @@ export type Observer<T> = {
 
 export type Subscription = {
   unsubscribe: () => void;
+}
+
+export type ResponseQueueItem = {
+  response: string;
+  callback?: () => Promise<void> | void;
+  streamingStrategy: StreamingStrategy;
+  intervalMs: number;
 }
 
 export interface StreamingStrategy {

@@ -1,10 +1,10 @@
 import { Observer, Observable } from '../types';
-import { StreamingStrategy } from "../types";
+import { StreamingStrategy, ResponseQueueItem } from "../types";
 
 export class SmoothStreamer {
   private currentResponse = '';
   private currentIndex = 0;
-  private responseQueue: { response: string, callback?: () => Promise<void> | void }[] = [];
+  private responseQueue: ResponseQueueItem[] = [];
   private isStreaming = false;
   private responseStream = new Observable<string>();
   private onStreamEndObservable = new Observable<void>();
@@ -16,16 +16,25 @@ export class SmoothStreamer {
     private prefixMatching: boolean = false,
   ) {}
   
-  public setInterval(intervalMs: number) {
+  public setInterval(intervalMs: number, force: boolean = false) {
     this.intervalMs = intervalMs;
-    if (this.isStreaming) {
-      void this.restartStreaming();
+    if (force) {
+      this.responseQueue = this.responseQueue.map((item) => ({
+        ...item,
+        intervalMs
+      }))
     }
     return this;
   }
   
-  public setStreamingStrategy(streamingStrategy: StreamingStrategy) {
+  public setStreamingStrategy(streamingStrategy: StreamingStrategy, force: boolean = false) {
     this.streamingStrategy = streamingStrategy;
+    if (force) {
+      this.responseQueue = this.responseQueue.map((item) => ({
+        ...item,
+        streamingStrategy
+      }))
+    }
     return this;
   }
   
@@ -46,7 +55,12 @@ export class SmoothStreamer {
   }
   
   public next(response: string, callback?: () => Promise<void> | void) {
-    this.responseQueue.push({ response, callback });
+    this.responseQueue.push({
+      response,
+      callback,
+      streamingStrategy: this.streamingStrategy,
+      intervalMs: this.intervalMs
+    });
     if (!this.isStreaming && !this.callbackLock) {
       void this.processQueue();
     }
@@ -76,13 +90,14 @@ export class SmoothStreamer {
     this.isStreaming = true;
     while (this.currentIndex < this.currentResponse.length) {
       const start = performance.now();
-      this.currentIndex = await this.streamingStrategy.stream(
+      const {streamingStrategy, intervalMs} = this.getCurrentResponseItem();
+      this.currentIndex = await streamingStrategy.stream(
         this.currentResponse,
         this.currentIndex,
         this.responseStream['notifyNext'].bind(this.responseStream),
       );
       const dt = performance.now() - start;
-      await this.delay(Math.max(0, this.intervalMs - dt));
+      await this.delay(Math.max(0, intervalMs - dt));
     }
     this.isStreaming = false;
   }
@@ -107,8 +122,7 @@ export class SmoothStreamer {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
   
-  private async restartStreaming() {
-    this.isStreaming = false;
-    await this.startStreaming();
+  private getCurrentResponseItem() {
+    return this.responseQueue[0] as ResponseQueueItem;
   }
 }
