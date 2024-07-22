@@ -1,5 +1,12 @@
 # smooth-streamer
 
+## 1.0.4
+
+### Patch Changes
+
+- e0a65b2: updated git repository name
+- 5baeccf: fixed bug where stream doesn't update subscribers after the first stream of strings ends
+
 ## 1.0.3
 
 ### Patch Changes
