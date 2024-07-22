@@ -161,7 +161,7 @@ export class SmoothStreamer {
   }
   
   private async processQueue() {
-    if (this.responseQueue.length === 0) {
+    if (this.responseQueue.length === 0 || this.responseQueue[0] === undefined) {
       this.responseStream['notifyComplete']();
       this.onStreamEndObservable['notifyNext']();
       return;

@@ -1,20 +1,20 @@
 {
   "name": "smooth-streamer",
-  "version": "1.1.2",
+  "version": "0.0.1",
   "description": "A library for streaming text responses smoothly with different strategies.",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "src/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "father build",
-    "build:deps": "father prebundle",
-    "prepublishOnly": "npm run build"
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "release": "pnpm run build && changeset publish",
+    "lint": "tsc"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AnasImloul/smooth-streamer.git"
   },
-  "keywords": ["streaming", "text", "smooth", "response", "llm"],
+  "keywords": ["streaming", "text", "smooth", "stream", "response", "llm"],
   "author": "AnasImloul",
   "license": "ISC",
   "bugs": {
@@ -29,7 +29,9 @@
     "access": "public"
   },
   "devDependencies": {
-    "father": "^4.5.0-rc.2"
+    "@changesets/cli": "^2.26.0",
+    "tsup": "^6.5.0",
+    "typescript": "^4.9.4"
   }
 }
 

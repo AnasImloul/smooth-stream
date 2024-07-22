@@ -9,7 +9,7 @@ npm install smooth-streamer
 ```
 
 ## Usage
-The Smooth Streamer library allows you to stream text content in a smooth, controlled manner. It supports different streaming strategies to cater to various needs. Below are examples in both JavaScript and TypeScript to demonstrate how to use the library.
+The Smooth Stream library allows you to stream text content in a smooth, controlled manner. It supports different streaming strategies to cater to various needs. Below are examples in both JavaScript and TypeScript to demonstrate how to use the library.
 
 ### JavaScript
 
@@ -22,7 +22,7 @@ const {
     getStreamingStrategy 
 } = require('smooth-streamer');
 
-// Create a SmoothStreamer instance with a 100ms delay
+// Create a SmoothStream instance with a 100ms delay
 // between characters
 // and prefix matching enabled
 const streamer = new SmoothStreamer(
@@ -61,6 +61,7 @@ streamer.next('Hello'); // Stream "Hello"
 // Continue streaming the extended text
 streamer.next('Hello, this is a test response.', () => {
     // This code runs after the text from this call is fully streamed
+    // and runs before any next stream calls
     console.log("text has been fully streamed.")
     
     // Flush the stream to reset it and clear pending updates
@@ -80,11 +81,9 @@ The Smooth Streamer library has native support for TypeScript, allowing you to t
 ## Streaming Strategies
 The library supports three streaming strategies, each suited for different types of text streaming needs:
 
-Character: Streams the response one character at a time, providing a smooth, letter-by-letter reveal of the text.
-Word: Streams the response one word at a time, skipping HTML tags and ensuring a natural word-by-word display.
-Whole: Streams the entire response at once, delivering the full text immediately without gradual reveal.
-Prefix Match
-The SmoothStreamer instance can be initialized with the prefix match feature enabled. This feature ensures that consecutive next() calls will reset the stream value to their longest common prefix.
+- **Character**: Streams the response one character at a time, providing a smooth, letter-by-letter reveal of the text.
+- **Word**: Streams the response one word at a time, skipping HTML tags and ensuring a natural word-by-word display.
+- **Whole**: Streams the entire response at once, delivering the full text immediately without gradual reveal.
 
 ## What is Prefix Matching?
 Prefix match means that when two consecutive next() calls are made, the stream will reset to the longest common prefix of the two strings. For example:
@@ -97,6 +96,3 @@ streamer.next('Hello, everyone');
 In this case, after the second call to `next()`, the stream will reset to "Hello, " which is the longest common prefix of "Hello, world" and "Hello, everyone". The streaming will then continue from "Hello, " to "Hello, everyone".
 
 By choosing the appropriate streaming strategy and utilizing the prefix match feature, you can tailor the text streaming behavior to match the desired user experience.
-
-
-
