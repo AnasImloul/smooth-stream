@@ -1,5 +1,11 @@
 # smooth-streamer
 
+## 1.0.3
+
+### Patch Changes
+
+- f8a08ca: updated project folder structure
+
 ## 1.0.2
 
 ### Patch Changes
